@@ -1,6 +1,7 @@
 from difflib import ndiff
 from pathlib import Path
 import os
+import shutil
 import subprocess
 import argparse
 from rich import (
@@ -66,11 +67,13 @@ def test_cmd(minishell_path, cmd):
 	# run cmd
 	bash = subprocess.run(
 		["bash"],
+		cwd="./bash_tmp",
 		capture_output=True,
 		input=cmd.encode()
 	)
 	minishell = subprocess.run(
 		[minishell_path],
+		cwd="./minishell_tmp",
 		capture_output=True,
 		input=cmd.encode()
 	)
@@ -154,6 +157,10 @@ def run_test(minishell_path, verbose, test_name, cmds, live, overall_task_id):
 		vertical="middle"
 	)
 
+	# create tmp directories
+	os.mkdir("./bash_tmp")
+	os.mkdir("./minishell_tmp")
+
 	# test all cmds
 	for cmd in cmds:
 		clean_cmd = cmd.removesuffix("\n")
@@ -180,6 +187,10 @@ def run_test(minishell_path, verbose, test_name, cmds, live, overall_task_id):
 				current_test_task,
 				advance=1
 			)
+
+	# delete tmp directories
+	shutil.rmtree("./bash_tmp")
+	shutil.rmtree("./minishell_tmp")
 
 	# print test output table
 	print(current_test_table)
