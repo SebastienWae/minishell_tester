@@ -1,0 +1,16 @@
+unset PWD | ls
+unset PWD | /bin/Ls
+unset PWD | /bin/ls
+unset PWD USERS HOME LOGNAME | env | grep USERS HOME LOGNAME
+unset PWD | echo ok
+export TESTrsxydtcfyvgubhnijomkonjbhiugv=bla \n unset       "TESTrsxydtcfyvgubhnijomkonjbhiugv" \n echo $?
+export TESTjknmlmklnj='kuhkuhk'
+export TESTjkndfvnj='"ku$?hku"hk' \n echo $?  export | grep TEST
+export TESTtdcvhbknlm="YO" \n unset TESTtdcvhbknlm | unset TESTjknmlmklnj \n echo $? \n export | grep TEST
+unset TESTtdcvhbknlm | TESTjknmlmklnj \n echo $? \n export | grep TEST
+export TESTjkndfv='"kuhku"hk' \n unset   TESTjkndfv='"kuhku"hk' \n echo $? \n  export | grep TEST
+unset   _TESTjkndfv= \n echo $? \n  export | grep TEST
+unset   __TESTjkndfv= \n echo $? \n  export | grep TEST
+unset 0 \n echo $? \n  export | grep TEST
+unset   567890RFUYGVHBK | unset 65798uhjnk \n echo $? \n  export | grep TEST
+export | grep TEST
