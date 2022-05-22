@@ -17,3 +17,6 @@ This tester will **only** check if the stdout, stderr and exit code of your `min
 ```shell
 ./test </path/to/minishell_bin> [--verbose]
 ```
+## credits
+- https://github.com/simon-ameye/42-minishell_bash_tester_2022
+- https://github.com/waxdred/tester_minishell42
