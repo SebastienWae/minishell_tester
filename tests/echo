@@ -1,0 +1,6 @@
+echo 123
+echo $USER
+echo $USEr
+echo "$USER"
+echo '$USER'
+echo ''$USER''
