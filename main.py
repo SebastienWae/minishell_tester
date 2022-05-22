@@ -64,8 +64,11 @@ def test_cmd(minishell_path, cmd):
 	diff_output = ""
 	diff_n = 0
 	for d in diff:
-		diff_n += 1
-		diff_output += d
+		if (d.startswith("- ") or d.startswith("+ ") or d.startswith("? ")):
+			diff_n += 1
+		if (len(diff_output) > 0):
+			diff_output += "\n"
+		diff_output += d.removesuffix("\n")
 
 	return (
 		Syntax(
@@ -73,7 +76,7 @@ def test_cmd(minishell_path, cmd):
 			lexer="diff",
 			background_color="default"
 		),
-		Text("KO", style="red") if diff_n > 1 else Text("OK", style="green"))
+		Text("KO", style="red") if diff_n >= 1 else Text("OK", style="green"))
 
 def run_test(minishell_path, test_name, cmds, live, overall_task_id):
 	# print test separator
