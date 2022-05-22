@@ -15,5 +15,5 @@ This tester will **only** check if the stdout, stderr and exit code of your `min
 ./install
 ```
 ```shell
-./test </path/to/minishell_bin>
+./test </path/to/minishell_bin> [--verbose]
 ```
