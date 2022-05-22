@@ -25,10 +25,8 @@ from rich.syntax import Syntax
 
 current_test_progress = Progress(
 	TimeElapsedColumn(),
-	BarColumn(bar_width=None),
-	TextColumn("{task.description}", justify="center"),
-	MofNCompleteColumn(),
-	expand=True
+	TextColumn("{task.description}"),
+	MofNCompleteColumn()
 )
 overall_progress = Progress(
 	TimeElapsedColumn(),
@@ -39,7 +37,7 @@ overall_progress = Progress(
 )
 progress_group = Group(
 	Panel(current_test_progress),
-	overall_progress,
+	overall_progress
 )
 
 def get_diff(str1, str2):
