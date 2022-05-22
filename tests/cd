@@ -1,0 +1,67 @@
+cd .. | pwd
+cd .a
+echo $?
+cd 
+echo $?
+cd .. 
+echo $?
+cd . 
+echo $?
+cd /Users 
+echo $?
+cd // 
+echo $?
+cd '//' 
+echo $?
+cd ////// 
+echo $?
+cd ./././ 
+echo $?
+cd /
+echo $?
+cd '/etc' 
+echo $?
+cd '/var' 
+echo $?
+cd "$PWD/file_tests" 
+echo $?
+cd "doesntexist" 
+echo $?
+cd "doesntexist">/dev/null 
+echo $?
+cd ../../..
+echo $?
+cd "wtf" >/dev/null 
+cd
+cd ../../../../../../../../../../../../../../..
+echo $?
+echo $?
+cd .. 
+echo $?
+cd ..
+echo $?
+cd ?
+echo $?
+cd +
+echo $?
+cd _
+echo $?
+cd woof
+echo $?
+cd bark bark
+echo $?
+cd '/' 
+echo $?
+cd $PWD/file_tests 
+echo $?
+cd $OLDPWD/something 
+cd/Users | pwd
+cD | pwd
+mkdir test_dir | pwd
+cd test_dirr | pwd
+rm -rf ../test_dir | pwd
+cd . | pwd
+cd ./test_dir | pwd
+cd .. | pwd
+cd no_file
+rm -rf test_dir
