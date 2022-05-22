@@ -191,12 +191,11 @@ def run_test(minishell_path, verbose, test_name, cmds, live, overall_task_id):
 		advance=1
 	)
 
-def checks(minishell_path):
-	minishell = Path(minishell_path.absolute())
-	if minishell.exists():
-		if minishell.is_file():
+def verify_minishell(minishell_path):
+	if minishell_path.exists():
+		if minishell_path.is_file():
 			if os.access(minishell_path.absolute(), os.X_OK):
-				return minishell.absolute()
+				return minishell_path.absolute()
 			else:
 				print(f":warning: '[bold red]{minishell_path.absolute()}[/bold red]' is not executable!")
 		else:
@@ -212,7 +211,7 @@ def main():
 	parser.add_argument("-v", "--verbose", help="print tests logs", action="store_true")
 	args = parser.parse_args()
 	# verify that the minishell is present
-	minishell_path = checks(args.minishell_path)
+	minishell_path = verify_minishell(args.minishell_path)
 	with Live(progress_group) as live:
 		# open tests dir
 		tests_dir = Path('./tests')
