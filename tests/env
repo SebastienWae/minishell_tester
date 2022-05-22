@@ -1,0 +1,67 @@
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n env | grep USER
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo test        test
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo "test"
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo $TEST
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo "$TEST"
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo '$TEST'
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo "$TEST$TEST$TEST"
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo "$TEST$TEST=lol$TEST"
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo "   $TEST lol $TEST"
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo $TEST$TEST$TEST
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo $TEST$TEST=lol$TEST""lol
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo    $TEST lol $TEST
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo test "" test "" test
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo "$TEST"
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo "$=TEST"
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo ----2----
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo "$ "
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo ----2----
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo "$ f"
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo ----4----
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo " $ "
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo ----4----
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo " $ $USER"
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo ----5----
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo ""$
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo ----6----
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo $""
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo ----6----
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo $''
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo ----0----
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo X'"$"""'
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo "$?TEST"
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo $TEST $TEST
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo "$1TEST"
+export $SHLVL=42 \n export _=/usr/bin/env \n export TEST=BLA \n echo "$T1TEST"
+export CHEVRON=">" \n echo bla $CHEVRON yo
+echo ----3----
+echo " $"
+echo ----1----
+echo "$"
+echo ----7----
+echo "$"""
+echo ----8----
+echo "$"XX""
+echo ----9----
+echo X"$"""
+echo ----9----
+env | env
+echo $?
+env | sort | grep -v SHLVL | grep -v _=
+export | sort | grep -v SHLVL | grep -v _= | grep -v OLDPWD
+expORt =''
+export 1TEST=''
+export TEST ''
+export ""=""
+export TES=T=""
+export TE+S=T=""
+export TEST=LOL \n echo $TEST
+export TEST=LOL \n echo $TEST$TEST$TEST=lol$TEST
+export TEST=LOL
+export TEST+=LOL
+export TEST="ls       -l     - a" \n echo $TEST
+export LOL=lala ROR=rara | env | sort | grep LOL ROR
+unset LOL ROR | env | sort | grep LOL ROR
+export "HI= hi"| env | sort | grep HI
+export "HI =hi"| env | sort | grep HI
+export HI=h"i| env | sort | greg HI"
