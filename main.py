@@ -22,6 +22,7 @@ from rich.live import Live
 from rich.table import Table
 from rich.text import Text
 from rich.syntax import Syntax
+from rich.style import Style
 
 
 current_test_progress = Progress(
@@ -40,27 +41,12 @@ progress_group = Group(
 	overall_progress,
 )
 
-def test_cmd(minishell_path, cmd):
-	# fix newline
-	cmd = cmd.replace("\\n", "\n")
-
-	# run cmd
-	bash_output = subprocess.run(
-		["bash"],
-		capture_output=True,
-		input=cmd.encode()
-	).stdout.decode()
-	minishell_output = subprocess.run(
-		[minishell_path],
-		capture_output=True,
-		input=cmd.encode()
-	).stdout.decode()
-
-	# get cmd diff
+def get_diff(str1, str2):
 	diff = ndiff(
-		bash_output.splitlines(keepends=True),
-		minishell_output.splitlines(keepends=True)
+		str1.splitlines(keepends=True),
+		str2.splitlines(keepends=True)
 	)
+
 	diff_output = ""
 	diff_n = 0
 	for d in diff:
@@ -70,13 +56,54 @@ def test_cmd(minishell_path, cmd):
 			diff_output += "\n"
 		diff_output += d.removesuffix("\n")
 
+	return (diff_output, diff_n)
+
+def test_cmd(minishell_path, cmd):
+	# fix newline
+	cmd = cmd.replace("\\n", "\n")
+
+	# run cmd
+	bash = subprocess.run(
+		["bash"],
+		capture_output=True,
+		input=cmd.encode()
+	)
+	minishell = subprocess.run(
+		[minishell_path],
+		capture_output=True,
+		input=cmd.encode()
+	)
+
+	# get diffs
+	stdout_diff = get_diff(bash.stdout.decode(), minishell.stdout.decode())
+	stderr_diff = get_diff(bash.stderr.decode(), minishell.stderr.decode())
+	exit_code_diff = get_diff(str(bash.returncode), str(minishell.returncode))
+
+	# check if test failed
+	is_ok = True
+	if stdout_diff[1] >= 1 or stderr_diff[1] >= 1 or exit_code_diff[1] >= 1:
+		is_ok = False
+
 	return (
 		Syntax(
-			diff_output.removesuffix("\n"),
+			stdout_diff[0].removesuffix("\n"),
+			word_wrap=True,
 			lexer="diff",
 			background_color="default"
 		),
-		Text("KO", style="red") if diff_n >= 1 else Text("OK", style="green"))
+		Syntax(
+			stderr_diff[0].removesuffix("\n"),
+			word_wrap=True,
+			lexer="diff",
+			background_color="default"
+		),
+		Syntax(
+			exit_code_diff[0].removesuffix("\n"),
+			word_wrap=True,
+			lexer="diff",
+			background_color="default"
+		),
+		Text("OK", style="green") if is_ok else Text("KO", style="red"))
 
 def run_test(minishell_path, test_name, cmds, live, overall_task_id):
 	# print test separator
@@ -97,15 +124,26 @@ def run_test(minishell_path, test_name, cmds, live, overall_task_id):
 	current_test_table = Table(
 		box=box.ROUNDED,
 		expand=True,
-		show_header=False,
 		show_lines=True,
-		highlight=True
+		highlight=True,
 	)
 	current_test_table.add_column(
+		"command",
 		justify="center",
 		vertical="middle"
 	)
 	current_test_table.add_column(
+		"stdout",
+		justify="center",
+		vertical="middle"
+	)
+	current_test_table.add_column(
+		"stderr",
+		justify="center",
+		vertical="middle"
+	)
+	current_test_table.add_column(
+		"exit code",
 		justify="center",
 		vertical="middle"
 	)
@@ -124,14 +162,17 @@ def run_test(minishell_path, test_name, cmds, live, overall_task_id):
 		current_test_table.add_row(
 			Syntax(
 				clean_cmd,
+				word_wrap=True,
 				background_color="default",
 				lexer="bash"
 			),
 			diff[0],
-			diff[1]
+			diff[1],
+			diff[2],
+			diff[3]
 		)
 		# increment progress if test is successful
-		if (diff[1].plain == "OK"):
+		if (diff[3].plain == "OK"):
 			current_test_progress.update(
 				current_test_task,
 				advance=1

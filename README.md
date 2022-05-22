@@ -1,7 +1,7 @@
 # minishell_tester
 An output tester for 42's minishell.
 
-This tester will **only** check if the output of your `minishell` is the same as the one from `bash`.
+This tester will **only** check if the stdout, stderr and exit code of your `minishell` are the same as the ones from `bash`.
 
 ![screenshot of the tester](/screenshots/simple.png?raw=true "Screenshot of the tester")
 
