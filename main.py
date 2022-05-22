@@ -2,6 +2,7 @@ from difflib import ndiff
 from pathlib import Path
 import os
 import subprocess
+import sys
 
 from rich import (
     box,
@@ -39,7 +40,7 @@ progress_group = Group(
 	overall_progress,
 )
 
-def test_cmd(cmd):
+def test_cmd(minishell_path, cmd):
 	# fix newline
 	cmd = cmd.replace("\\n", "\n")
 
@@ -50,7 +51,7 @@ def test_cmd(cmd):
 		input=cmd.encode()
 	).stdout.decode()
 	minishell_output = subprocess.run(
-		["./minishell"],
+		[minishell_path],
 		capture_output=True,
 		input=cmd.encode()
 	).stdout.decode()
@@ -74,7 +75,7 @@ def test_cmd(cmd):
 		),
 		Text("KO", style="red") if diff_n > 1 else Text("OK", style="green"))
 
-def run_test(test_name, cmds, live, overall_task_id):
+def run_test(minishell_path, test_name, cmds, live, overall_task_id):
 	# print test separator
 	live.console.rule(f"'{test_name}' tests")
 
@@ -115,7 +116,7 @@ def run_test(test_name, cmds, live, overall_task_id):
 		clean_cmd = cmd.removesuffix("\n")
 		# print logs
 		live.console.log(f"testing: '{clean_cmd}'")
-		diff = test_cmd(cmd)
+		diff = test_cmd(minishell_path, cmd)
 		# add output to table
 		current_test_table.add_row(
 			Syntax(
@@ -147,20 +148,26 @@ def run_test(test_name, cmds, live, overall_task_id):
 		advance=1
 	)
 
-def checks():
-	minishell = Path("./minishell")
-	if minishell.exists():
-		if os.access("./minishell", os.X_OK):
-			return
+def checks(arguments):
+	if len(arguments) == 2:
+		minishell = Path(arguments[1])
+		if minishell.exists():
+			if minishell.is_file():
+				if os.access(arguments[1], os.X_OK):
+					return minishell.absolute()
+				else:
+					print(f":warning: '[bold red]{arguments[1]}[/bold red]' is not executable!")
+			else:
+				print(f":warning: '[bold red]{arguments[1]}[/bold red]' is not a file!")
 		else:
-			print("minishell is not executable!")
+			print(f":warning: '[bold red]{arguments[1]}[/bold red]' does not exist!")
 	else:
-		print("minishell is missing!")
+		print(f":warning: wrong number of argument, please send only the path to the minishell bin!")
 	exit(1)
 
 def main():
 	# verify that the minishell is present
-	checks()
+	minishell_path = checks(sys.argv)
 	with Live(progress_group) as live:
 		# open tests dir
 		tests_dir = Path('./tests')
@@ -180,7 +187,13 @@ def main():
 				# get all cmds
 				cmds = file.readlines()
 				# run test
-				run_test(test_file.name, cmds, live, overall_task_id)
+				run_test(
+					minishell_path,
+					test_file.name,
+					cmds,
+					live,
+					overall_task_id
+				)
 
 		# stop overall progress bars
 		overall_progress.update(
