@@ -25,14 +25,17 @@ from rich.syntax import Syntax
 
 current_test_progress = Progress(
 	TimeElapsedColumn(),
-	TextColumn("{task.description}"),
-	MofNCompleteColumn()
+	BarColumn(bar_width=None),
+	TextColumn("{task.description}", justify="center"),
+	MofNCompleteColumn(),
+	expand=True
 )
 overall_progress = Progress(
 	TimeElapsedColumn(),
-	BarColumn(),
-	TextColumn("{task.description}"),
-	MofNCompleteColumn()
+	BarColumn(bar_width=None),
+	TextColumn("{task.description}", justify="center"),
+	MofNCompleteColumn(),
+	expand=True
 )
 progress_group = Group(
 	Panel(current_test_progress),
