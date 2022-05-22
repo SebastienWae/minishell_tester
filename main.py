@@ -69,13 +69,13 @@ def test_cmd(minishell_path, cmd):
 		["bash"],
 		cwd="./bash_tmp",
 		capture_output=True,
-		input=cmd.encode()
+		input=cmd.encode(),
 	)
 	minishell = subprocess.run(
 		[minishell_path],
 		cwd="./minishell_tmp",
 		capture_output=True,
-		input=cmd.encode()
+		input=cmd.encode(),
 	)
 
 	# get diffs
@@ -206,6 +206,20 @@ def run_test(minishell_path, verbose, test_name, cmds, live, overall_task_id):
 		advance=1
 	)
 
+def test(file, minishell_path, verbose, live, overall_task_id):
+	with file.open('r' , encoding="utf-8") as file:
+		# get all cmds
+		cmds = file.readlines()
+		# run test
+		run_test(
+			minishell_path,
+			verbose,
+			file.name,
+			cmds,
+			live,
+			overall_task_id
+		)
+
 def verify_minishell(minishell_path):
 	if minishell_path.exists():
 		if minishell_path.is_file():
@@ -220,40 +234,37 @@ def verify_minishell(minishell_path):
 	exit(1)
 
 def main():
+	# open tests dir
+	tests_dir = Path('./tests')
+
+	# get test files
+	test_files = []
+	test_names = []
+	for item in tests_dir.iterdir():
+		if item.is_file():
+			test_files.append(item)
+			test_names.append(item.name)
+
 	# parsre arguments
 	parser = argparse.ArgumentParser(prog='test')
 	parser.add_argument("minishell_path", help="path to your minishell executable", type=Path)
+	parser.add_argument("--test", help="run a specific test", choices=test_names)
 	parser.add_argument("-v", "--verbose", help="print tests logs", action="store_true")
 	args = parser.parse_args()
 	# verify that the minishell is present
 	minishell_path = verify_minishell(args.minishell_path)
 	with Live(progress_group) as live:
-		# open tests dir
-		tests_dir = Path('./tests')
-
-		# get test files
-		test_files = []
-		for item in tests_dir.iterdir():
-			if item.is_file():
-				test_files.append(item)
-
 		# create overval progress bar
 		overall_task_id = overall_progress.add_task("", total=len(test_files))
 	
-		# loop overs each test file
-		for test_file in test_files:
-			with test_file.open('r' , encoding="utf-8") as file:
-				# get all cmds
-				cmds = file.readlines()
-				# run test
-				run_test(
-					minishell_path,
-					args.verbose,
-					test_file.name,
-					cmds,
-					live,
-					overall_task_id
-				)
+		if args.test:
+			# do specific test
+			test_file = Path(f"./tests/{args.test}")
+			test(test_file, minishell_path, args.verbose, live, overall_task_id)
+		else:
+			# loop overs each test file
+			for test_file in test_files:
+				test(test_file, minishell_path, args.verbose, live, overall_task_id)
 
 		# stop overall progress bars
 		overall_progress.update(
