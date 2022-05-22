@@ -1,0 +1,37 @@
+env | grep "SHLVL"
+echo oui | cat -e
+echo oui | echo non | echo something | grep oui
+echo oui | echo non | echo something | grep non
+echo oui | echo non | echo something | grep something
+cd .. | echo "something"
+cd .. | echo "something"
+cd / | echo "something"
+cd .. | pwd
+ifconfig | grep ":"
+ifconfig | grep nothing
+whoami | grep $USER
+cat tmp1
+whoami | grep $USER > tmp1
+cat tmp1
+whoami | cat -e | cat -e > tmp1
+cat tmp1
+whoami | grep "$USER'c'" > tmp1
+cat tmp1
+whoami | grep "$USER''" > tmp1
+cat tmp1
+export TEST=123 | cat -e | cat -e
+unset TEST | cat -e
+echo test | cat -e | cat -e | cat -e
+whereis ls | cat -e | cat -e > tmp2
+cat tmp2
+echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e
+ls  | grep "."
+whereis grep > tmp1
+whereis grep > tmp2
+cat tmp1
+cat tmp2
+ls  > tmp1
+ls  < tmp1
+cat tmp1
+unset PATH
+ls | ls | ls
