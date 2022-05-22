@@ -160,6 +160,14 @@ def run_test(minishell_path, verbose, test_name, cmds, live, overall_task_id):
 	# create tmp directories
 	os.mkdir("./bash_tmp")
 	os.mkdir("./minishell_tmp")
+	Path("./bash_tmp/file1").touch()
+	Path("./bash_tmp/file2").touch()
+	os.mkdir("./bash_tmp/dir1")
+	os.mkdir("./bash_tmp/dir2")
+	Path("./minishell_tmp/file1").touch()
+	Path("./minishell_tmp/file2").touch()
+	os.mkdir("./minishell_tmp/dir1")
+	os.mkdir("./minishell_tmp/dir2")
 
 	# test all cmds
 	for cmd in cmds:
