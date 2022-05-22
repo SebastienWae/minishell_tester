@@ -49,7 +49,9 @@ def get_diff(str1, str2):
 	diff_output = ""
 	diff_n = 0
 	for d in diff:
-		if (d.startswith("- ") or d.startswith("+ ") or d.startswith("? ")):
+		if (d.startswith("? ")):
+			continue
+		if (d.startswith("- ") or d.startswith("+ ")):
 			diff_n += 1
 		if (len(diff_output) > 0):
 			diff_output += "\n"
