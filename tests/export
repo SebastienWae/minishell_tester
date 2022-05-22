@@ -1,0 +1,29 @@
+export TESTFCGFCSGFC \n echo $?
+export TESTNBKJNLJ='rferfh$re"f' \n echo $?
+export TESTNBKJNLJdgf="'rferfh$ref'" \n echo $?
+export TESTNBKJNLJtcfgvhjbk="rferfh$re'f" \n echo $?
+export = \n echo $?
+export 1TESTHBGUHBUHB= \n echo $?
+export TESTOUHOSIOUNXJKNK 34khh -deded \n echo $?
+export ""="" \ echo $?
+export "=" \n echo $?
+export TESTFGCHVJKNLJKHVJGCHFGVJBKNL2='"' \n echo $?
+export TESTFGCHVJKNLJKHVJGCHFGVJBKNL3="'" \n echo $?
+export "$" \n echo $?
+export TESTJHBSJCBJHSC111=T="" \n echo $?
+export TESTNJNCKJDCKDCKDJN222+S=T="" \n echo $?
+export TESTKXSLXSLX333=LOL \n echo $?
+export TESTYGVSBNJKHBXGJHN444=LOL \n echo $?
+export TESTREDTUHINJO555=LOL \n echo $?
+export TESTYRFTGUIHUJOKL666=lol \n echo $?
+export TESTYRFTGUIHUJOKL666=LOLdfgtgh \n echo $?
+export TESTYTFUGYHIUNJ777="ls       -l     - a" \n echo $?
+export | grep TEST
+env | grep TEST | sort
+export arg='"hello"' \n echo $arg
+touch ls \n chmod 777 ls \n ls
+export ORIGINALPATH=$PATH
+export PATH="$PATH:$PWD" \n
+export PATH=$ORIGINALPATH
+export PATH="$PWD:$PATH" \n ls
+export TESTFGCHVJKNLJKHVJGCHFGVJBKNL4="$"
