@@ -1,0 +1,55 @@
+rm tmp1 tmp2
+echo jhjbsdc >> tmp1
+cat tmp1
+ls
+cat tmp1
+echo kjnsdc sdc sddc > tmp1 knsdc sdc  sdcsdc > tmp1
+cat tmp1
+ls
+cat tmp1
+cat < tmp1 < jnsdc ssdjcnnj > tmp2
+ls
+cat tmp2
+cat < tester.sh > tmp2
+ls
+cat tmp2
+cat<tmp1<jnsdc ssdjcnnj>tmp2
+ls
+rm tmp1 tmp2
+> $USER
+>$USER
+< $USER
+rm $USER
+ls
+ls >tmp1 > tmp1 >>tmp1
+ls >tmp1 > tmp1
+ls >tmp1 >> tmp1 >>tmp1
+ls >tmp1 > tmp1 <tmp1
+echo hello > tmp1
+ls >tmp1 >> tmp1 >>tmp1 | cat
+rm tmp1 tmp2
+echo hello > tmp1
+echo hhell >> tmp1
+cat tmp1
+echo hell > tmp1
+cat tmp1
+echo hello >> tmp1 | echo bla
+cat tmp1
+echo hello >> tmp1 | echobla
+cat tmp1
+echobla | echo hello >> tmp1
+cat tmp1
+rm tmp1 tmp2
+echo test > ls
+echo test > ls >> ls >> ls > echo test >> ls
+> lol echo test lol
+>lol echo > test>lol>test>>lol>test mdr >lol test >test
+CAT test
+/Bin/Cat tzest
+cat < ls   
+cat < ls > ls
+rm -rf ls test lol mdr lol echo
+head -c 2000000 /dev/zero > big_file
+cat big_file | ls
+cat big_file | echo lol
+rm big_file ls test lol
