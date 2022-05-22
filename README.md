@@ -15,7 +15,7 @@ This tester will **only** check if the stdout, stderr and exit code of your `min
 ./install
 ```
 ```shell
-./test [-t test_name] [--verbose] </path/to/minishell_bin>
+./test [--test test_name] [--verbose] </path/to/minishell_bin>
 ```
 ## credits
 - https://github.com/simon-ameye/42-minishell_bash_tester_2022
