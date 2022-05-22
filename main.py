@@ -142,6 +142,7 @@ def run_test(minishell_path, verbose, test_name, cmds, live, overall_task_id):
 	)
 	current_test_table.add_column(
 		"exit code",
+		max_width=5,
 		justify="center",
 		vertical="middle"
 	)
