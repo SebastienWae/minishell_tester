@@ -1,0 +1,16 @@
+echo hello > tmp1
+cat << '$USER' > tmp1 \n bonjour \n je \n suis \n '$USER' \n "$USER" \n $USER
+cat tmp1
+rm tpm1
+cat << $USER > tmp1 \n bonjour \n je \n suis \n '$USER' \n "$USER" \n $USER
+cat tmp1
+rm tpm1
+cat << $AAAA > tmp2 \n bonjour \n je \n suis \n '$USER' \n "AAAA" \n $AAAA
+cat tmp1
+rm tpm1
+cat << "hello'ksdcksd'ckdsc'""""""'"kjbsdckj'"fddvdf"vdfvdfv'bsdc > tmp1 \n bonjour \n '$USER' \n "$USER" \n $USER \n $AAAAAAAAAAAAAAAAAA \n $AAAAAAAA \n "hello'ksdcksd'ckdsc'""""""'"kjbsdckj'"fddvdf"vdfvdfv'bsdc \n hello'ksdcksd'ckdsc''kjbsdckj"fddvdf"vdfvdfvbsdc
+cat tmp1
+rm tpm1
+cat << "b$" > tmp1 \n bonjour \n je \n suis \n '$USER' \n "$USER" \n $USER \n $AAAAAAAAAAAAAAAAAA \n $AAAAAAAA \n "$" \n "" \n $ \n b$
+cat tmp1
+rm tmp1
