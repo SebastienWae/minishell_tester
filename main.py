@@ -2,8 +2,7 @@ from difflib import ndiff
 from pathlib import Path
 import os
 import subprocess
-import sys
-
+import argparse
 from rich import (
     box,
     print
@@ -22,7 +21,6 @@ from rich.live import Live
 from rich.table import Table
 from rich.text import Text
 from rich.syntax import Syntax
-from rich.style import Style
 
 
 current_test_progress = Progress(
@@ -105,7 +103,7 @@ def test_cmd(minishell_path, cmd):
 		),
 		Text("OK", style="green") if is_ok else Text("KO", style="red"))
 
-def run_test(minishell_path, test_name, cmds, live, overall_task_id):
+def run_test(minishell_path, verbose, test_name, cmds, live, overall_task_id):
 	# print test separator
 	live.console.rule(f"'{test_name}' tests")
 
@@ -156,7 +154,8 @@ def run_test(minishell_path, test_name, cmds, live, overall_task_id):
 	for cmd in cmds:
 		clean_cmd = cmd.removesuffix("\n")
 		# print logs
-		live.console.log(f"testing: '{clean_cmd}'")
+		if (verbose):
+			live.console.log(f"testing: '{clean_cmd}'")
 		diff = test_cmd(minishell_path, cmd)
 		# add output to table
 		current_test_table.add_row(
@@ -192,26 +191,28 @@ def run_test(minishell_path, test_name, cmds, live, overall_task_id):
 		advance=1
 	)
 
-def checks(arguments):
-	if len(arguments) == 2:
-		minishell = Path(arguments[1])
-		if minishell.exists():
-			if minishell.is_file():
-				if os.access(arguments[1], os.X_OK):
-					return minishell.absolute()
-				else:
-					print(f":warning: '[bold red]{arguments[1]}[/bold red]' is not executable!")
+def checks(minishell_path):
+	minishell = Path(minishell_path.absolute())
+	if minishell.exists():
+		if minishell.is_file():
+			if os.access(minishell_path.absolute(), os.X_OK):
+				return minishell.absolute()
 			else:
-				print(f":warning: '[bold red]{arguments[1]}[/bold red]' is not a file!")
+				print(f":warning: '[bold red]{minishell_path.absolute()}[/bold red]' is not executable!")
 		else:
-			print(f":warning: '[bold red]{arguments[1]}[/bold red]' does not exist!")
+			print(f":warning: '[bold red]{minishell_path.absolute()}[/bold red]' is not a file!")
 	else:
-		print(f":warning: wrong number of argument, please send only the path to the minishell bin!")
+		print(f":warning: '[bold red]{minishell_path.absolute()}[/bold red]' does not exist!")
 	exit(1)
 
 def main():
+	# parsre arguments
+	parser = argparse.ArgumentParser(prog='test')
+	parser.add_argument("minishell_path", help="path to your minishell executable", type=Path)
+	parser.add_argument("-v", "--verbose", help="print tests logs", action="store_true")
+	args = parser.parse_args()
 	# verify that the minishell is present
-	minishell_path = checks(sys.argv)
+	minishell_path = checks(args.minishell_path)
 	with Live(progress_group) as live:
 		# open tests dir
 		tests_dir = Path('./tests')
@@ -233,6 +234,7 @@ def main():
 				# run test
 				run_test(
 					minishell_path,
+					args.verbose,
 					test_file.name,
 					cmds,
 					live,
