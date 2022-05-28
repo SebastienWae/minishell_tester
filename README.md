@@ -6,7 +6,7 @@ This tester will **only** check if the stdout, stderr and exit code of your `min
 ![screenshot of the tester](/assets/screenshot.png?raw=true "Screenshot of the tester")
 
 ## requirements
-- python 3
+- python 3.10
 - pip
 - your minishell must be able to receive a command from the stdin without `readline`.
 
